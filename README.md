@@ -2,7 +2,7 @@
 
 
 
-Discord bot that saves your server's layout so you can grow it back if it gets nuked.
+Multipurpose Discord bot that saves your server's layout so you can grow it back if it gets nuked.
 
 
 
