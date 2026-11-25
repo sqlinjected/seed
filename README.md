@@ -1,4 +1,4 @@
-\# seed
+# seed
 
 
 
@@ -16,13 +16,13 @@ Your backups stay on your machine, nothing gets sent anywhere else.
 
 
 
-\## Status
+## Status
 
 Early. `/backup` is first.
 
 
 
-\## Setup
+## Setup
 
 1\. `pip install -r requirements.txt`
 
