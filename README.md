@@ -18,7 +18,7 @@ Your backups stay on your machine, nothing gets sent anywhere else.
 
 ## Status
 
-Early. `/backup` is first.
+Alpha build
 
 
 
