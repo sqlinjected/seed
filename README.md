@@ -18,8 +18,7 @@ Your backups stay on your machine, nothing gets sent anywhere else.
 
 ## Status
 
-Alpha build
-
+Early release
 
 
 ## Setup
