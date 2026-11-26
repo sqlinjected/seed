@@ -1,3 +1,4 @@
+import json
 import os
 
 import discord
@@ -22,6 +23,50 @@ async def on_ready():
 async def ping(interaction: discord.Interaction):
     ms = round(client.latency * 1000)
     await interaction.response.send_message(f"pong {ms}ms")
+
+
+@tree.command(name="backup", description="save this server's roles and channels")
+async def backup(interaction: discord.Interaction):
+    guild = interaction.guild
+    if guild is None:
+        await interaction.response.send_message("use this in a server")
+        return
+
+    data = {"name": guild.name, "roles": [], "categories": [], "channels": []}
+
+    for role in guild.roles:
+        if role.is_default() or role.managed:
+            continue
+        data["roles"].append({
+            "name": role.name,
+            "color": role.color.value,
+            "hoist": role.hoist,
+            "mentionable": role.mentionable,
+            "position": role.position,
+        })
+
+    for cat in guild.categories:
+        data["categories"].append({"name": cat.name, "position": cat.position})
+
+    for ch in guild.channels:
+        if isinstance(ch, discord.CategoryChannel):
+            continue
+        data["channels"].append({
+            "name": ch.name,
+            "type": str(ch.type),
+            "category": ch.category.name if ch.category else None,
+            "position": ch.position,
+        })
+
+    os.makedirs("backups", exist_ok=True)
+    path = f"backups/{guild.id}.json"
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+    await interaction.response.send_message(
+        f"saved {len(data['roles'])} roles, {len(data['channels'])} channels",
+        file=discord.File(path),
+    )
 
 
 if not TOKEN:
